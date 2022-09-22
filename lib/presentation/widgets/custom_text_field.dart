@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'widget_export.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -12,12 +11,14 @@ class CustomTextField extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? keyboardType;
   final bool? enabled;
-  final int? maxLenght;
+  final int? maxLength;
   final int? maxLines;
   final TextInputAction? textInputAction;
-  String Function(String? value)? validator;
+  String? Function(String? value)? validator;
   void Function()? onEditingComplete;
   final Widget? suffixIcon;
+
+  final EdgeInsets? padding;
   final bool? obscure;
 
   CustomTextField(
@@ -28,10 +29,11 @@ class CustomTextField extends StatelessWidget {
       this.onEditingComplete,
       this.maxLines,
       this.enabled,
-      this.maxLenght,
+      this.maxLength,
       this.obscure,
       this.controller,
       this.onChanged,
+        this.padding,
       this.focus,
       this.validator,
       this.inputFormatters});
@@ -42,7 +44,7 @@ class CustomTextField extends StatelessWidget {
       enabled: enabled ?? true,
       focusNode: focus,
       onChanged: onChanged,
-      maxLength: maxLenght,
+      maxLength: maxLength,
       maxLines: maxLines,
       controller: controller,
       inputFormatters: inputFormatters,
@@ -66,7 +68,7 @@ class CustomTextField extends StatelessWidget {
             fontWeight: FontWeight.w500,
             color: Theme.of(context).textTheme.bodyText1!.color),
         counter: const SizedBox.shrink(),
-        contentPadding: const EdgeInsets.symmetric(
+        contentPadding: padding ?? const EdgeInsets.symmetric(
           horizontal: 20,
           vertical: 20,
         ),
@@ -75,11 +77,8 @@ class CustomTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(color: Colors.transparent)),
         focusedBorder: UnderlineInputBorder(
-            borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(10),
-              topLeft: Radius.circular(10),
-            ),
-            borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: Colors.transparent)),
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(color: Colors.transparent)),
